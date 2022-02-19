@@ -3,7 +3,7 @@ import "./App.css"
 import AtalkiWidget from "./components/Widget"
 function App({ domelement }) {
   const id = domelement.getAttribute("data-docid");
-  console.log(id)
+  console.log(id, "testing")
   return (
     <div className="container">
       <AtalkiWidget />
