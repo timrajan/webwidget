@@ -1,3 +1,4 @@
+import React from 'react';
 import "./App.css"
 import AtalkiWidget from "./components/Widget"
 function App({ domelement }) {
