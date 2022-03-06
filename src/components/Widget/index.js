@@ -76,6 +76,7 @@ const AtalkiWidget = ({ id }) => {
         document.onreadystatechange = () => {
             if (document.readyState === 'complete') {
                 const widgetBody = document.getElementById("atalki-widget-faq-body");
+                console.log(widgetBody)
                 widgetBody.addEventListener('click', handlefaqClick);
             }
         }
