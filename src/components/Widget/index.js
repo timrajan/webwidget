@@ -83,8 +83,9 @@ const AtalkiWidget = ({ id }) => {
     }, [])
 
     const handlefaqClick = useCallback((event) => {
-        console.log("came here")
+
         const questionId = Number(event.target.getAttribute("data-question-id"));
+        console.log(questionId)
         updateVisibleAnswerId(previousValue => {
             if (previousValue === questionId) return null;
             return questionId;
