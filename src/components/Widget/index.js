@@ -66,7 +66,7 @@ const AtalkiWidget = ({ id }) => {
     const [query, updateQuery] = useState("");
     const [loading, updateLoading] = useState(false)
 
-
+    console.log("came here")
 
     useEffect(() => {
         getQa()
