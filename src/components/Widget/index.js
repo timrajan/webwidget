@@ -97,6 +97,7 @@ const AtalkiWidget = ({ id }) => {
 
 
     const getQa = () => {
+        console.error("came here")
         fetch(`https://www.atalki.com/api/v2/gettopnquestions/${btoa(id)}/15/`)
             .then(res => res.json())
             .then(data => updatequas(data))
