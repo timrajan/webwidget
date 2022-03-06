@@ -74,6 +74,7 @@ const AtalkiWidget = ({ id }) => {
 
     useEffect(() => {
         document.onreadystatechange = () => {
+            console.log("changed")
             if (document.readyState === 'complete') {
                 const widgetBody = document.getElementById("atalki-widget-faq-body");
                 console.log(widgetBody)
@@ -82,7 +83,7 @@ const AtalkiWidget = ({ id }) => {
         }
     }, [])
 
-    const handlefaqClick = useCallback((event) => {
+    const handlefaqClick = (event) => {
 
         const questionId = Number(event.target.getAttribute("data-question-id"));
         console.log(questionId)
@@ -92,7 +93,7 @@ const AtalkiWidget = ({ id }) => {
         })
 
 
-    }, [visibleAnswerId])
+    }
 
 
     const getQa = () => {
