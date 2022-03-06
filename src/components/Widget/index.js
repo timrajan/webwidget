@@ -59,16 +59,18 @@ const data = [{
     ans: 'My name is Aman Dhurwey'
 }]
 
-const AtalkiWidget = () => {
+const AtalkiWidget = ({ id }) => {
     const [visibleAnswerId, updateVisibleAnswerId] = useState(null);
     const [expand, toggelFaqBox] = useState(true);
-    const [posts, updatePosts] = useState(data);
-    const [postPerPage, updatePostPerPage] = useState(5);
-    const [currentPage, updateCurrentPage] = useState(1);
+    const [qas, updatequas] = useState([]);
+    const [query, updateQuery] = useState("");
+    const [loading, updateLoading] = useState(false)
 
-    const lastIndex = currentPage * postPerPage;
-    const startIndex = lastIndex - postPerPage;
-    const post = posts.slice(startIndex, lastIndex);
+
+
+    useEffect(() => {
+        getQa()
+    }, [])
 
     useEffect(() => {
         document.onreadystatechange = () => {
@@ -89,22 +91,31 @@ const AtalkiWidget = () => {
 
     }, [visibleAnswerId])
 
-    const NumberTabs = ({ postPerPage, totalPosts, changePage }) => {
-        const tabs = [];
-        for (let index = 1; index <= totalPosts; index++) {
-            if (index * postPerPage <= totalPosts) {
-                tabs.push(index);
-            }
-        }
 
-        return (
-            <div className="atalki-widget-number-container">
-                {tabs.map((index) => (
-                    <div onClick={() => changePage(index)} key={index}>{index}</div>
-                ))}
-            </div>
-        );
-    };
+    const getQa = () => {
+        fetch(`https://www.atalki.com/api/v2/gettopnquestions/${btoa(id)}/15/`)
+            .then(res => res.json())
+            .then(data => updatequas(data))
+            .catch(err => console.log("failed to fetch FAQs", err))
+    }
+
+    const getMatchingQas = () => {
+        if (query.length === 0) return getQa();
+        updateLoading(true);
+        fetch(`https://www.atalki.com/api/v2/gettopnmatchingquestions/${btoa(id)}/15/${query}/`)
+            .then(res => res.json())
+            .then(data => {
+                updateLoading(false);
+                updatequas(data)
+            })
+            .catch(err => {
+                updateLoading(false);
+                updatequas([])
+                console.log("failed to fetch FAQs", err)
+            })
+    }
+
+
 
     return (
         expand ? <div className={`atalki-widget-container ${expand ? 'expand' : 'collpase'}`}>
@@ -118,12 +129,13 @@ const AtalkiWidget = () => {
                         <p className="atalki-widget-logo">FAQ</p>
                     </div> */}
                     <div className="atalki-widget-input-container">
-                        <input id="atalki-widget-search-bar" className="atalki-widget-search-bar" placeholder="I am looking for"></input>
+                        <input id="atalki-widget-search-bar" className="atalki-widget-search-bar" placeholder="I am looking for" value={query} onChange={(e) => updateQuery(e.target.value)}></input>
+                        <button onClick={getMatchingQas}>Search</button>
                     </div>
                 </div>
                 <div className="atalki-widget-faq-body" id="atalki-widget-faq-body">
                     {
-                        data.map(({ id, ques, ans }) => <div key={id} className="atalki-widget-faq">
+                        qas.length > 0 ? qas.map(({ id, question: ques, answer: ans }) => ques.length > 0 && ans.length > 0 && <div key={id} className="atalki-widget-faq">
                             <div className="atalki-widget-question-container">
                                 <p data-question-id={id}>{ques}</p>
                                 <i class="fas fa-chevron-down"></i>
@@ -131,16 +143,12 @@ const AtalkiWidget = () => {
                             <div className={`atalki-widget-answer ${visibleAnswerId !== id ? 'hideText' : ''}`}>
                                 <p>{ans}</p>
                             </div>
-                        </div>)
+                        </div>) : <div>
+                            <p>No FAQ's found</p>
+                        </div>
                     }
                 </div>
-                <div className="atalki-widget-faq-footer">
-                    {/* <NumberTabs
-                   postPerPage={postPerPage}
-                   totalPosts={posts.length}
-                   changePage={updateCurrentPage}
-               /> */}
-                </div>
+
             </div>
         </div> : <div className="FAQ-button" onClick={() => toggelFaqBox(true)}>FAW's</div>
     )

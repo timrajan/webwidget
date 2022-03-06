@@ -3,10 +3,14 @@ import "./App.css"
 import AtalkiWidget from "./components/Widget"
 function App({ domelement }) {
   const id = domelement.getAttribute("data-docid");
-  console.log(id, "testing")
+  if (!id) {
+    console.error("Doc id is required");
+    return null;
+  }
+
   return (
     <div className="container">
-      <AtalkiWidget />
+      <AtalkiWidget id={id} />
     </div>
   );
 }
