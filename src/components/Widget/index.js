@@ -1,72 +1,12 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import "./widget.css"
-
-const data = [{
-    id: 1,
-    ques: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis p',
-    ans: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis p'
-}, {
-    id: 2,
-    ques: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis p',
-
-    ans: 'My name is Aman Dhurwey'
-}, {
-    id: 3,
-    ques: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis p',
-
-    ans: 'My name is Aman Dhurwey'
-}, {
-    id: 4,
-    ques: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis p',
-
-    ans: 'My name is Aman Dhurwey'
-}, {
-    id: 5,
-    ques: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis p',
-
-    ans: 'My name is Aman Dhurwey'
-}, {
-    id: 6,
-    ques: 'What is your name 6?',
-    ans: 'My name is Aman Dhurwey'
-}, {
-    id: 7,
-    ques: 'What is your name 7?',
-    ans: 'My name is Aman Dhurwey'
-}, {
-    id: 8,
-    ques: 'What is your name 8?',
-    ans: 'My name is Aman Dhurwey'
-}, {
-    id: 9,
-    ques: 'What is your name 9?',
-    ans: 'My name is Aman Dhurwey'
-}, {
-    id: 10,
-    ques: 'What is your name 10?',
-    ans: 'My name is Aman Dhurwey'
-}, {
-    id: 11,
-    ques: 'What is your name 11?',
-    ans: 'My name is Aman Dhurwey'
-}, {
-    id: 12,
-    ques: 'What is your name 12?',
-    ans: 'My name is Aman Dhurwey'
-}, {
-    id: 13,
-    ques: 'What is your name 13?',
-    ans: 'My name is Aman Dhurwey'
-}]
 
 const AtalkiWidget = ({ id }) => {
     const [visibleAnswerId, updateVisibleAnswerId] = useState(null);
-    const [expand, toggelFaqBox] = useState(true);
+    const [expand, toggelFaqBox] = useState(false);
     const [qas, updatequas] = useState([]);
     const [query, updateQuery] = useState("");
     const [loading, updateLoading] = useState(false)
-
-    console.log("came here")
 
     useEffect(() => {
         getQa()
@@ -132,7 +72,7 @@ const AtalkiWidget = ({ id }) => {
     return (
         expand ? <div className={`atalki-widget-container ${expand ? 'expand' : 'collpase'}`}>
             <div className="cross-button" >
-                <p className="title">FAQ's</p>
+                <p className="title">Frequently asked Questions</p>
                 <p className="cross" onClick={() => toggelFaqBox(!expand)}>Close</p>
             </div>
             <div className="atalki-widget-faq-container">
@@ -162,7 +102,7 @@ const AtalkiWidget = ({ id }) => {
                 </div>
 
             </div>
-        </div> : <div className="FAQ-button" onClick={() => toggelFaqBox(true)}>FAW's</div>
+        </div> : <div className="FAQ-button" onClick={() => toggelFaqBox(true)}>Frequently Asked Questions</div>
     )
 }
 
