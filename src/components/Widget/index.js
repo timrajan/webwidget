@@ -76,12 +76,19 @@ const AtalkiWidget = ({ id }) => {
         document.onreadystatechange = () => {
             console.log("changed")
             if (document.readyState === 'complete') {
-                const widgetBody = document.getElementById("atalki-widget-faq-body");
-                console.log(widgetBody)
-                widgetBody.addEventListener('click', handlefaqClick);
+                addClick();
             }
         }
     }, [])
+
+    useEffect(() => {
+        addClick();
+    }, [expand])
+
+    const addClick = () => {
+        const widgetBody = document.getElementById("atalki-widget-faq-body");
+        if (widgetBody) widgetBody.addEventListener('click', handlefaqClick);
+    }
 
     const handlefaqClick = (event) => {
 
@@ -97,7 +104,7 @@ const AtalkiWidget = ({ id }) => {
 
 
     const getQa = () => {
-        console.error("came here")
+
         fetch(`https://www.atalki.com/api/v2/gettopnquestions/${btoa(id)}/15/`)
             .then(res => res.json())
             .then(data => updatequas(data))
