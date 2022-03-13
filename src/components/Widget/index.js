@@ -14,7 +14,6 @@ const AtalkiWidget = ({ id }) => {
 
     useEffect(() => {
         document.onreadystatechange = () => {
-            console.log("changed")
             if (document.readyState === 'complete') {
                 addClick();
             }
@@ -95,7 +94,7 @@ const AtalkiWidget = ({ id }) => {
                                 <p>{ans}</p>
                             </div>
                         </div>) : <div className='atalki-faq-reponse-container'>
-                            <p>No FAQ's found</p>
+                            <p>No FAQs found</p>
                         </div>
                     }
                 </div>
