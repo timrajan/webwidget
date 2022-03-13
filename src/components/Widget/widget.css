@@ -1,27 +1,12 @@
-/* .atalki-widget-container {
-  position: fixed;
-  bottom: 0;
-  right: 10%;
-} */
-/* 
-.atalki-widget-faq-container {
-  background-color: black;
-} */
-
-.atalki-widget-search-bar {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&family=Mukta:wght@200;300;400;500;600&display=swap");
 
 .atalki-widget-container {
   font-size: 12px;
   position: relative;
   width: 520px;
-  background-color: #4f9bfe;
-  padding: 12px 16px;
-  box-shadow: rgba(100, 100, 111, 0.2)
-    0px 7px 29px 0px;
+  background-color: white;
+  font-family: "Cairo", sans-serif;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   position: relative;
   overflow: hidden;
   display: flex;
@@ -29,14 +14,17 @@
   transform: translateY(100px);
   position: fixed;
   right: 1%;
-  bottom: 0;
-  border-radius: 5px;
+  bottom: 5%;
+  border-radius: 15px;
   color: white;
+  line-height: 24px;
 }
-.cross-button {
+.atalki-widget-container p {
+  margin: 0;
+}
+.atalki-widget-top-header {
   height: 20px;
   width: 20px;
-  border-radius: 50%;
   z-index: 1;
   font-size: 12px;
   text-align: right;
@@ -44,7 +32,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 8px 0;
+  background-color: #027ffb;
+  margin-bottom: 12px;
 }
 .cross {
   cursor: pointer;
@@ -53,8 +42,10 @@
 }
 .atalki-widget-faq-header {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
+  background-color: #027ffb;
+  padding: 20px;
 }
 
 .atalki-widget-input-container {
@@ -63,33 +54,29 @@
   width: 100%;
   background-color: white;
   display: flex;
-  justify-content: center;
   align-items: center;
 }
 .atalki-widget-input-container input {
   width: 100%;
   outline: none;
   border: none;
-  background-color: rgba(
-    128,
-    128,
-    128,
-    0.083
-  );
   border-radius: 5px;
   height: 24px;
   padding: 8px;
+  font-family: "Cairo", sans-serif;
 }
 .atalki-widget-faq-body {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  width: 100%;
+  /* align-items: center; */
+  /* width: 100%; */
   height: 320px;
-  margin-top: 8px;
+  /* margin-top: 8px; */
   min-height: 320px;
   overflow-y: scroll;
   color: black;
+  background-color: white;
+  padding: 0 12px;
 }
 
 .atalki-widget-faq-body::-webkit-scrollbar {
@@ -102,38 +89,33 @@
   align-items: center;
   max-width: 100%;
   padding: 4px 8px;
-  margin: 4px 0;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px
-      13px 27px -5px,
-    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
-  background-color: white;
-  border-radius: 5px;
-  font-weight: 600;
+
+  /* box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px; */
+  /* background-color: white; */
+  /* border-radius: 5px; */
+  font-weight: 700;
   justify-content: space-between;
+  border-bottom: 1px solid gray;
+  cursor: pointer;
 }
 
 .atalki-widget-question-container p {
-  font-size: 12px !important;
+  font-size: 1rem;
   flex: 1;
 }
 
 .atalki-widget-answer {
   animation: animate 0.7s;
   padding: 4px 8px;
-  background-color: rgba(
-    245,
-    245,
-    245,
-    0.642
-  );
-  border-radius: 5px;
-  margin: 12px 0;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px
-      13px 27px -5px,
-    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  /* background-color: rgba(245, 245, 245, 0.642); */
+  /* border-radius: 5px; */
+  /* margin: 12px 0; */
+  /* box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px; */
 }
 .atalki-widget-answer p {
-  font-size: 12px;
+  font-size: 0.8rem;
 }
 
 .hideText {
@@ -141,6 +123,7 @@
 }
 .atalki-widget-faq {
   width: 100%;
+  margin: 8px 0;
 }
 
 .title {
@@ -149,8 +132,7 @@
 }
 
 .collpase .atalki-widget-faq-container {
-  animation: collpase 0.7s ease-in-out
-    forwards;
+  animation: collpase 0.7s ease-in-out forwards;
   animation-direction: alternate;
 }
 
@@ -171,8 +153,7 @@
 }
 .atalki-widget-number-container div {
   margin-right: 16px;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px
-    2px 8px 0px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   padding: 12px;
   height: 16px;
   width: 16px;
@@ -184,15 +165,15 @@
 
 .FAQ-button {
   padding: 12px;
-  background-color: #4f9bfe;
+  background-color: #027ffb;
   color: white;
   font-weight: bold;
   text-transform: uppercase;
   text-align: center;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
   position: fixed;
-  bottom: 0;
+  bottom: 1%;
   right: 1%;
   font-size: 12px;
 }
@@ -226,4 +207,74 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+.search-button {
+  cursor: pointer;
+  outline: none;
+  border: none;
+  height: 100%;
+  background-color: white;
+  width: 100%;
+  outline: none;
+  border: none;
+  height: 100%;
+  background-color: white;
+  width: 100%;
+  flex: 0;
+  padding: 0 8px;
+}
+
+.active-section {
+  background-color: aliceblue;
+}
+
+.active-section .atalki-widget-question-container {
+  border: none;
+}
+
+.atalki-widget-search-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+}
+
+.atalki-faq-reponse-container {
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.atalki-faq-reponse-container p {
+  flex: 1;
+  font-weight: 700;
+  font-size: 16px;
+  text-align: center;
+}
+
+.atalki-widget-faq-footer {
+  color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #027ffb;
+}
+
+.page-link {
+  text-decoration: underline;
+  color: white;
+}
+
+.tag-line {
+  font-weight: 600;
+}
+
+.tag-line a {
+  color: white;
 }
