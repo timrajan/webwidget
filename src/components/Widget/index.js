@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import "./widget.css"
 
-const AtalkiWidget = ({ id }) => {
+const AtalkiWidget = ({ id, color, secColor }) => {
     const [visibleAnswerId, updateVisibleAnswerId] = useState(null);
     const [expand, toggelFaqBox] = useState(false);
     const [qas, updatequas] = useState([]);
@@ -68,10 +68,10 @@ const AtalkiWidget = ({ id }) => {
 
 
     return (
-        expand ? <div className={`atalki-widget-container ${expand ? 'expand' : 'collpase'}`}>
+        expand ? <div className={`atalki-widget-container ${expand ? 'expand' : 'collpase'}`} style={{ backgroundColor: color }}>
 
             <div className="atalki-widget-faq-container">
-                <div className="atalki-widget-faq-header">
+                <div className="atalki-widget-faq-header" style={{ backgroundColor: color }}>
                     <div className="atalki-widget-top-header" >
                         <p className="title">Frequently asked Questions</p>
                         <p className="cross" onClick={() => toggelFaqBox(!expand)}><svg fill='white' xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><path d="M23.954 21.03l-9.184-9.095 9.092-9.174-2.832-2.807-9.09 9.179-9.176-9.088-2.81 2.81 9.186 9.105-9.095 9.184 2.81 2.81 9.112-9.192 9.18 9.1z" /></svg></p>
@@ -85,7 +85,7 @@ const AtalkiWidget = ({ id }) => {
                 </div>
                 <div className="atalki-widget-faq-body" id="atalki-widget-faq-body">
                     {
-                        qas.length > 0 ? qas.map(({ id, question: ques, answer: ans }) => ques.length > 0 && ans.length > 0 && <div key={id} className={`atalki-widget-faq ${visibleAnswerId !== id ? '' : 'active-section'}`}>
+                        qas.length > 0 ? qas.map(({ id, question: ques, answer: ans }) => ques.length > 0 && ans.length > 0 && <div key={id} className={`atalki-widget-faq ${visibleAnswerId !== id ? '' : 'active-section'}`} style={{ backgroundColor: visibleAnswerId === id ? secColor ? secColor : "aliceblue" : "" }}>
                             <div className="atalki-widget-question-container">
                                 <p data-question-id={id}>{ques}</p>
                                 <i class="fas fa-chevron-down"></i>
@@ -98,14 +98,14 @@ const AtalkiWidget = ({ id }) => {
                         </div>
                     }
                 </div>
-                <div className='atalki-widget-faq-footer'>
-                    <a className='page-link' href={`https://www.atalki.com/doc-page/${id}`}>Visit offical FAQ page</a>
+                <div className='atalki-widget-faq-footer' style={{ backgroundColor: color }}>
+                    <a className='page-link' href={`https://www.atalki.com/doc-page/${id}`} target={"_blank"}>Visit offical FAQ page</a>
 
-                    <p className='tag-line'>Powered by <a href='https://www.atalki.com/'>atalki</a></p>
+                    <p className='tag-line'>Powered by <a href='https://www.atalki.com/' target={"_blank"}>atalki</a></p>
                 </div>
 
             </div>
-        </div> : <div className="FAQ-button" onClick={() => toggelFaqBox(true)}>Frequently Asked Questions</div>
+        </div> : <div className="FAQ-button" onClick={() => toggelFaqBox(true)} style={{ backgroundColor: color }}>Frequently Asked Questions</div>
     )
 }
 

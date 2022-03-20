@@ -1,7 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&family=Mukta:wght@200;300;400;500;600&display=swap");
 
 .atalki-widget-container {
-  font-size: 12px;
   position: relative;
   width: 520px;
   background-color: white;
@@ -32,7 +31,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #027ffb;
+
   margin-bottom: 12px;
 }
 .cross {
@@ -101,7 +100,7 @@
 }
 
 .atalki-widget-question-container p {
-  font-size: 1rem;
+  font-size: 0.8rem;
   flex: 1;
 }
 
@@ -150,6 +149,12 @@
   justify-content: center;
   align-items: center;
   padding: 12px 0;
+  font-size: 0.8rem;
+}
+
+.atalki-widget-faq-footer a,
+p {
+  cursor: pointer;
 }
 .atalki-widget-number-container div {
   margin-right: 16px;
@@ -225,9 +230,9 @@
   padding: 0 8px;
 }
 
-.active-section {
+/* .active-section {
   background-color: aliceblue;
-}
+} */
 
 .active-section .atalki-widget-question-container {
   border: none;
@@ -261,9 +266,9 @@
 .atalki-widget-faq-footer {
   color: black;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   background-color: #027ffb;
+  padding: 12px;
 }
 
 .page-link {
@@ -277,4 +282,15 @@
 
 .tag-line a {
   color: white;
+}
+
+@media only screen and (max-width: 414px) {
+  /* For desktop: */
+  .atalki-widget-container {
+    width: 100%;
+    right: 0;
+    bottom: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
 }
