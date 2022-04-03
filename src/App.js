@@ -1,20 +1,21 @@
-import React from 'react';
-import "./App.css"
-import AtalkiWidget from "./components/Widget"
-function App({ domelement }) {
-  const id = domelement.getAttribute("data-docid");
-  const color = domelement.getAttribute("data-primary-color");
-  const secColor = domelement.getAttribute("data-secondary-color");
+import React from 'react'
+import AtalkiWidget from './components/Widget'
+
+function App({ domelement, inIframe }) {
+  const id = domelement.getAttribute('data-atalki-docid')
+  const color = domelement.getAttribute('data-atalki-color')
+  // const secColor = domelement.getAttribute('data-secondary-color')
+
   if (!id) {
-    console.error("Doc id is required");
-    return null;
+    console.error('Doc id is required')
+    return null
   }
 
   return (
-    <div className="container">
-      <AtalkiWidget id={id} color={color || "#027ffb"} secColor={secColor} />
+    <div className='atalki-main-container'>
+      <AtalkiWidget id={id} color={color || '#027ffb'} inIframe={inIframe} />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

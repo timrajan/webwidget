@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Atalki Widget</title>
+  </head>
+  <body>
+    <script>
+      const inIframe = window.location !== window.parent.location
+      if (inIframe) {
+        const myScript = document.createElement('script')
+        myScript.src = '../dist/index.js'
+        const arr = window.location.href.split('#')
+        myScript.setAttribute('data-atalki-docid', arr[1].split('=')[1])
+        myScript.setAttribute('data-atalki-color', '#' + arr[2].split('=')[1])
+        myScript.setAttribute('data-atalki-inFrame', inIframe)
+        document.body.appendChild(myScript)
+      }
+    </script>
+  </body>
+</html>
