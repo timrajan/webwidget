@@ -1,5 +1,5 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import css from 'bundle-text:./index.css'
 import App from './App'
 
@@ -29,10 +29,10 @@ if (scriptTag) {
 
   scriptTag.parentNode.insertBefore(widgetDiv, scriptTag)
 
-  ReactDOM.render(
+  const root = createRoot(widgetDiv)
+  root.render(
     <React.StrictMode>
       <App domelement={widgetDiv} inIframe={inIframe} />
-    </React.StrictMode>,
-    widgetDiv
+    </React.StrictMode>
   )
 }
