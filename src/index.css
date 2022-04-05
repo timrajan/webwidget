@@ -133,6 +133,10 @@
   font-weight: bold;
 }
 
+.atalki-mobile-title {
+  display: none;
+}
+
 .atalki-collpase .atalki-widget-faq-container {
   animation: collpase 0.7s ease-in-out forwards;
   animation-direction: alternate;
@@ -285,6 +289,25 @@ p {
   line-height: 1;
 }
 
+.atalki-top-title-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.atalki-status-icon {
+  height: 16px;
+  width: 16px;
+  border-radius: 100px;
+  margin-left: 10px;
+}
+
+.atalki-status-icon.offline {
+  background-color: #808080;
+}
+.atalki-status-icon.online {
+  background-color: #008000;
+}
+
 .atalki-widget-iframe-container {
   width: 100%;
   border-radius: 0;
@@ -314,12 +337,24 @@ p {
   }
 }
 
-@media screen and (max-width: 350px) {
+@media screen and (max-width: 450px) {
   .atalki-title {
-    font-size: 0.875rem;
+    display: none;
   }
+  .atalki-mobile-title {
+    font-weight: bold;
+    display: block;
+    font-size: 1rem;
+    margin-right: 5px;
+  }
+}
 
+@media screen and (max-width: 350px) {
   .atalki-widget-faq-footer {
     flex-direction: column;
+  }
+
+  .atalki-status-icon {
+    margin-left: 4px;
   }
 }

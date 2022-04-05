@@ -11,7 +11,7 @@
       const inIframe = window.location !== window.parent.location
       if (inIframe) {
         const myScript = document.createElement('script')
-        myScript.src = '../dist/index.js'
+        myScript.src = 'https://cdn.atalki.live/index.js'
         const arr = window.location.href.split('#')
         myScript.setAttribute('data-atalki-docid', arr[1].split('=')[1])
         myScript.setAttribute('data-atalki-color', '#' + arr[2].split('=')[1])

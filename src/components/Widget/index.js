@@ -65,14 +65,22 @@ const AtalkiWidget = ({ id, color, secColor, inIframe }) => {
   }
 
   useEffect(() => {
-    fetch(`https://www.atalki.com/api/v2/getsingledocinfo_noauth/MTA2/`)
-      .then((res) => res.json())
-      .then((data) => {
-        // console.log(data)
-        // console.log(data.is_active)
+    const checkStatus = async () => {
+      try {
+        const res = await fetch(
+          `https://www.atalki.com/api/v2/getsingledocinfo_noauth/${btoa(id)}/`
+        )
+        const data = await res.json()
         setIsUserActive(data.is_active)
-      })
-      .catch((err) => console.log('failed to get user status', err))
+      } catch (error) {
+        console.log('failed to get user status', err)
+      }
+    }
+    checkStatus()
+    const interval = setInterval(() => checkStatus(), 30000)
+    return () => {
+      clearInterval(interval)
+    }
   }, [])
 
   return expand ? (
@@ -91,23 +99,42 @@ const AtalkiWidget = ({ id, color, secColor, inIframe }) => {
       style={{ backgroundColor: color }}
     >
       <div className='atalki-widget-faq-container'>
-        {isUserActive && (
-          <a
-            className='atalki-page-link'
-            href={`https://www.atalki.com/doc-page/${id}`}
-            target='_blank'
-            rel='noopener'
-            style={{ textAlign: 'right', margin: '5px' }}
-          >
-            Chat With Us
-          </a>
-        )}
         <div
           className='atalki-widget-faq-header'
           style={{ backgroundColor: color }}
         >
           <div className='atalki-widget-top-header'>
-            <p className='atalki-title'>Frequently asked Questions</p>
+            <div className='atalki-top-title-wrapper'>
+              <p className='atalki-title'>Frequently asked Questions</p>
+              <p className='atalki-mobile-title'>FAQs</p>
+              <span
+                className={`atalki-status-icon ${
+                  isUserActive ? 'online' : 'offline'
+                }`}
+              ></span>
+              <>
+                {isUserActive ? (
+                  <a
+                    className='atalki-page-link'
+                    href={`https://www.atalki.com/doc-page/${id}`}
+                    target='_blank'
+                    rel='noopener'
+                    style={{ marginLeft: '3px' }}
+                  >
+                    Chat With Us
+                  </a>
+                ) : (
+                  <span
+                    className='atalki-page-link'
+                    href={`#`}
+                    rel='noopener'
+                    style={{ marginLeft: '3px', textDecoration: 'none' }}
+                  >
+                    Offline
+                  </span>
+                )}
+              </>
+            </div>
             {!inIframe && (
               <p className='atalki-cross' onClick={() => toggelFaqBox(!expand)}>
                 <svg
@@ -200,13 +227,13 @@ const AtalkiWidget = ({ id, color, secColor, inIframe }) => {
             target='_blank'
             rel='noopener'
           >
-            Visit offical FAQ page
+            Visit my offical FAQ page
           </a>
 
           <p className='atalki-tag-line'>
             Powered by
             <a href='https://www.atalki.com/' target='_blank' rel='noopener'>
-              Atalki
+              atalki
             </a>
           </p>
         </div>
