@@ -71,7 +71,7 @@ const AtalkiWidget = ({ id, color, secColor, inIframe }) => {
           `https://www.atalki.com/api/v2/getsingledocinfo_noauth/${btoa(id)}/`
         )
         const data = await res.json()
-        setIsUserActive(data.is_active)
+        setIsUserActive(data.is_owner_online)
       } catch (error) {
         console.log('failed to get user status', err)
       }
