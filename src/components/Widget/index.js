@@ -73,7 +73,7 @@ const AtalkiWidget = ({ id, color, secColor, inIframe }) => {
         const data = await res.json()
         setIsUserActive(data.is_owner_online)
       } catch (error) {
-        console.log('failed to get user status', err)
+        console.log('failed to get user status', error)
       }
     }
     checkStatus()
