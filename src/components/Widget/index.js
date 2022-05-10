@@ -83,6 +83,40 @@ const AtalkiWidget = ({ id, color, secColor, inIframe }) => {
     }
   }, [])
 
+  useEffect(() => {
+    if (qas.length > 0) {
+      const myScript = document.createElement('script')
+      myScript.type = 'application/ld+json'
+      const content = {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: [],
+      }
+
+      qas.forEach((qa) => {
+        content.mainEntity.push({
+          '@type': 'Question',
+          name: `${qa.question}`,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: `<p>${qa.answer}</p>`,
+          },
+        })
+      })
+      myScript.textContent = JSON.stringify(content, null, 2)
+      document.head.appendChild(myScript)
+
+      const iframeDoc = document.querySelector('iframe[title="atalkiwidget"]')
+        .contentWindow.document
+      if (iframeDoc) {
+        const myScript1 = iframeDoc.createElement('script')
+        myScript1.type = 'application/ld+json'
+        myScript1.textContent = JSON.stringify(content, null, 2)
+        iframeDoc.head.appendChild(myScript1)
+      }
+    }
+  }, [qas])
+
   return expand ? (
     <div
       className={`
