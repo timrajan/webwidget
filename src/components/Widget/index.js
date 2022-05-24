@@ -105,15 +105,6 @@ const AtalkiWidget = ({ id, color, secColor, inIframe }) => {
       })
       myScript.textContent = JSON.stringify(content, null, 2)
       document.head.appendChild(myScript)
-
-      const iframeDoc = document.querySelector('iframe[title="atalkiwidget"]')
-        .contentWindow.document
-      if (iframeDoc) {
-        const myScript1 = iframeDoc.createElement('script')
-        myScript1.type = 'application/ld+json'
-        myScript1.textContent = JSON.stringify(content, null, 2)
-        iframeDoc.head.appendChild(myScript1)
-      }
     }
   }, [qas])
 
