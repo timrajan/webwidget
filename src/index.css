@@ -286,6 +286,7 @@ p {
   display: inline-block;
   font-weight: bold;
   line-height: 1;
+  flex-shrink: 0;
 }
 
 .atalki-top-title-wrapper {
@@ -298,6 +299,22 @@ p {
   width: 16px;
   border-radius: 100px;
   margin-left: 10px;
+}
+
+.atalki-blink{
+  animation: blink 2s infinite forwards alternate;
+}
+
+@keyframes blink {
+  0%,10% {
+    background-color: #fff;
+  }
+  50%{
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1
+  }
 }
 
 .atalki-status-icon.offline {
@@ -356,4 +373,16 @@ p {
   .atalki-status-icon {
     margin-left: 4px;
   }
+}
+
+
+/* RichText */
+
+.atalki-richText p{
+  font-size: 1rem;
+}
+
+.atalki-richText ul,
+.atalki-richText ol {
+  padding-left: 1.5rem;
 }
