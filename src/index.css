@@ -302,15 +302,12 @@ p {
 }
 
 .atalki-blink{
-  animation: blink 2s infinite forwards alternate;
+  animation: blink 0.5s infinite forwards alternate;
 }
 
 @keyframes blink {
   0%,10% {
     background-color: #fff;
-  }
-  50%{
-    opacity: 0.5;
   }
   100% {
     opacity: 1

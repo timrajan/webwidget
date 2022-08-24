@@ -234,7 +234,9 @@ const AtalkiWidget = ({ id, color, secColor, inIframe }) => {
                         blink ? "atalki-blink" : ""
                       }`}
                       style={{
-                        backgroundColor: blink ? qa_highlight_color : "#fff",
+                        backgroundColor: qa_highlight_color
+                          ? qa_highlight_color
+                          : "#fff",
                       }}
                     >
                       <RichFaqDisplay id={id} data={ques} />
