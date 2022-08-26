@@ -211,9 +211,11 @@ const AtalkiWidget = ({ id, color, secColor, inIframe }) => {
                 answer: ans,
                 qa_highlight_color,
                 blink,
+                is_expired,
               }) =>
                 ques.length > 0 &&
-                ans.length > 0 && (
+                ans.length > 0 &&
+                !is_expired && (
                   <div
                     key={id}
                     data-question-id={id}

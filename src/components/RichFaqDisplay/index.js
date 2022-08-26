@@ -5,7 +5,11 @@ const RichFaqDisplay = ({data}) => {
     return (
       <div
         className="atalki-richText"
-        dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(data) }}
+        dangerouslySetInnerHTML={{
+          __html: DOMPurify.sanitize(data, {
+            ADD_ATTR: ["target"],
+          }),
+        }}
       />
     );
 }
