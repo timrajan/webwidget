@@ -1,14 +1,31 @@
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&family=Mukta:wght@200;300;400;500;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&family=Mukta:wght@200;300;400;500;600&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0 !important;
+  padding: 0 !important;
+}
 
 .atalki-main-container {
-  font-family: 'Cairo', sans-serif;
+  font-family: "Cairo", sans-serif;
 }
 
 .atalki-widget-container {
   position: relative;
   width: 520px;
   background-color: white;
-  font-family: 'Cairo', sans-serif;
+  font-family: "Cairo", sans-serif;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   position: relative;
   overflow: hidden;
@@ -52,12 +69,13 @@
 }
 
 .atalki-widget-input-container {
-  margin: 0 auto;
+  margin: 0 auto !important;
   border-radius: 5px;
   width: 100%;
-  background-color: white;
+  background-color: white !important;
   display: flex;
   align-items: center;
+  padding: 8px !important;
 }
 .atalki-widget-input-container input {
   width: 100%;
@@ -66,7 +84,7 @@
   border-radius: 5px;
   height: 24px;
   padding: 8px;
-  font-family: 'Cairo', sans-serif;
+  font-family: "Cairo", sans-serif;
 }
 .atalki-widget-faq-body {
   display: flex;
@@ -86,7 +104,6 @@
   cursor: pointer;
   display: flex;
   flex-direction: row;
-  align-items: center;
   max-width: 100%;
   padding: 4px 8px;
   font-weight: 700;
@@ -98,7 +115,6 @@
 .atalki-widget-question-container p {
   font-size: 0.8rem;
   flex: 1;
-  margin-right: 1rem;
 }
 
 .atalki-widget-answer {
@@ -213,20 +229,15 @@ p {
   z-index: 999999999999;
 }
 
-.atalki-search-button {
-  cursor: pointer;
-  outline: none;
-  border: none;
+.atalki-widget-input-container .atalki-search-button {
+  cursor: pointer !important;
+  outline: none !important;
+  border: none !important;
   height: 100%;
-  background-color: white;
-  width: 100%;
-  outline: none;
-  border: none;
-  height: 100%;
-  background-color: white;
+  background-color: white !important;
   width: 100%;
   flex: 0;
-  padding: 0 8px;
+  padding: 0 8px !important;
 }
 
 .active-section .atalki-widget-question-container {
@@ -254,7 +265,7 @@ p {
 .atalki-faq-reponse-container p {
   flex: 1;
   font-weight: 700;
-  font-size: 1rem;
+  font-size: 1rem !important;
   text-align: center;
 }
 
@@ -301,16 +312,17 @@ p {
   margin-left: 10px;
 }
 
-.atalki-blink{
+.atalki-blink {
   animation: blink 0.5s infinite forwards alternate;
 }
 
 @keyframes blink {
-  0%,10% {
+  0%,
+  10% {
     background-color: #fff;
   }
   100% {
-    opacity: 1
+    opacity: 1;
   }
 }
 
@@ -325,7 +337,7 @@ p {
   width: 100%;
   border-radius: 0;
   background-color: white;
-  font-family: 'Cairo', sans-serif;
+  font-family: "Cairo", sans-serif;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   position: relative;
   overflow: hidden;
@@ -372,14 +384,18 @@ p {
   }
 }
 
-
 /* RichText */
 
-.atalki-richText p{
-  font-size: 1rem;
+.atalki-richText p {
+  font-size: 1rem !important;
 }
 
 .atalki-richText ul,
 .atalki-richText ol {
-  padding-left: 1.5rem;
+  padding-left: 1.5rem !important;
+}
+
+.richText a {
+  text-decoration: underline !important;
+  color: #06c !important;
 }
