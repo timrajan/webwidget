@@ -1,6 +1,6 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
-import css from 'bundle-text:./index.css'
+import css from 'bundle-text:./styles/index.css'
 import App from './App'
 
 let style = document.createElement('style')
