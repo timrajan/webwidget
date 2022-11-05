@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import css from 'bundle-text:./styles/index.css'
 import App from './App'
 import { GlobalProvider } from './context/globalContext'
+import { UserProvider } from './context/userContext'
 
 let style = document.createElement('style')
 style.type = 'text/css'
@@ -34,7 +35,9 @@ if (scriptTag) {
   root.render(
     <React.StrictMode>
       <GlobalProvider>
-        <App domelement={widgetDiv} inIframe={inIframe} />
+        <UserProvider>
+          <App domelement={widgetDiv} inIframe={inIframe} />
+        </UserProvider>
       </GlobalProvider>
     </React.StrictMode>
   )

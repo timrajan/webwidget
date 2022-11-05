@@ -168,6 +168,7 @@ p {
   padding: 4px 8px;
   font-weight: 700;
   justify-content: space-between;
+  align-items: baseline;
   border-bottom: 1px solid gray;
   cursor: pointer;
 }
@@ -364,6 +365,11 @@ p {
   font-weight: bold;
   line-height: 1;
   flex-shrink: 0;
+  transition: all 0.1s ease-in;
+}
+
+#atalki-main-container .atalki-chevron-down.active {
+  transform: rotate(-180deg);
 }
 
 #atalki-main-container .atalki-status-icon {

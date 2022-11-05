@@ -34,14 +34,21 @@ const reducer = (state, action) => {
   }
 }
 
-function useFetch(url, isFetchAfterMount = false) {
+function useFetch(
+  url,
+  reqLoading = true,
+  reqError = true,
+  isFetchAfterMount = false
+) {
   const [state, dispatch] = useReducer(reducer, initialState)
   const controllerRef = useRef(null)
 
   const myFetch = useCallback(() => {
     const controller = new AbortController()
     controllerRef.current = controller
-    dispatch({ type: 'fetchDataStart' })
+    if (reqLoading) {
+      dispatch({ type: 'fetchDataStart' })
+    }
     fetch(url, { signal: controller.signal })
       .then((res) => res.json())
       .then((data) => {
@@ -51,7 +58,9 @@ function useFetch(url, isFetchAfterMount = false) {
         })
       })
       .catch((error) => {
-        dispatch({ type: 'fetchDataFail', data: error })
+        if (reqError) {
+          dispatch({ type: 'fetchDataFail', data: error })
+        }
       })
   }, [url])
 

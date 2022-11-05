@@ -1,5 +1,7 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
+import { useGlobalContext } from './globalContext'
 import useFetch from '../hooks/useFetch'
+import { API_URL } from '../constant'
 
 const initialState = {
   avatar: '',
@@ -8,19 +10,31 @@ const initialState = {
   is_premium: false,
 }
 
-const UserContext = React.createContext(null)
+const UserContext = React.createContext(initialState)
 
 const useUserContext = () => useContext(UserContext)
 
 const UserProvider = ({ children }) => {
-  const { data, loading, error } = useFetch('', true)
+  const { id } = useGlobalContext()
+  const { myFetch, data } = useFetch(
+    `${API_URL}/getdocownerinfo/${btoa(id)}/`,
+    false,
+    false
+  )
+
+  useEffect(() => {
+    if (id) {
+      myFetch()
+    }
+  }, [id])
 
   return (
     <UserContext.Provider
       value={{
-        loading,
-        error,
-        data,
+        avatar: data?.avatar,
+        first_name: data?.first_name,
+        email: data?.email,
+        is_premium: data?.is_premium,
       }}
     >
       {children}

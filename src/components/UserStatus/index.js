@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from 'react'
+import { API_URL } from '../../constant'
+import { useUserContext } from '../../context/userContext'
+import NonPremiumStatus from './NonPremiumStatus'
+import PremiumStatus from './PremiumStatus'
 
 const UserStatus = ({ id }) => {
+  const { is_premium } = useUserContext()
   const [isUserActive, setIsUserActive] = useState(false)
 
   useEffect(() => {
     const checkStatus = async () => {
       try {
         const res = await fetch(
-          `https://www.atalki.com/api/v2/getsingledocinfo_noauth/${btoa(id)}/`
+          `${API_URL}/getsingledocinfo_noauth/${btoa(id)}/`
         )
         const data = await res.json()
         setIsUserActive(data.is_owner_online)
@@ -15,7 +20,7 @@ const UserStatus = ({ id }) => {
         console.log('failed to get user status', error)
       }
     }
-    // checkStatus()
+    checkStatus()
     // const interval = setInterval(() => checkStatus(), 30000)
     // return () => {
     //   clearInterval(interval)
@@ -28,7 +33,11 @@ const UserStatus = ({ id }) => {
         className={`atalki-status-icon ${isUserActive ? 'online' : 'offline'}`}
       />
       <span className='atalki-status'>
-        {isUserActive ? 'Online' : 'Offline'}
+        {is_premium ? (
+          <PremiumStatus isUserActive={isUserActive} />
+        ) : (
+          <NonPremiumStatus isUserActive={isUserActive} id={id} />
+        )}
       </span>
     </>
   )

@@ -2,16 +2,16 @@ import React, { useState, useEffect } from 'react'
 import Button from '../../components/Button'
 import Footer from '../../components/Footer'
 import RichFaqDisplay from '../../components/RichFaqDisplay'
+import UserStatus from '../../components/UserStatus'
+import { useGlobalContext } from '../../context/globalContext'
+import { useUserContext } from '../../context/userContext'
+import ChevronDown from '../../icons/chevronDown'
+import CloseIcon from '../../icons/closeIcon'
+import SearchIcon from '../../icons/searchIcon'
 
-const FAQPage = ({
-  id,
-  color,
-  secColor,
-  inIframe,
-  toggelFaqBox,
-  expand,
-  toggleChat,
-}) => {
+const FAQPage = ({ toggelFaqBox, expand, toggleChat }) => {
+  const { is_premium } = useUserContext()
+  const { id, color, inIframe } = useGlobalContext()
   const [visibleAnswerId, updateVisibleAnswerId] = useState(null)
   const [qas, updatequas] = useState([])
   const [query, updateQuery] = useState('')
@@ -25,7 +25,7 @@ const FAQPage = ({
   }
 
   useEffect(() => {
-    // getQa()
+    getQa()
   }, [])
 
   useEffect(() => {
@@ -109,19 +109,15 @@ const FAQPage = ({
           <div className='flex aic'>
             <p className='atalki-title'>Frequently asked Questions</p>
             <p className='atalki-mobile-title'>FAQs</p>
-            <Button handleClick={toggleChat}>Chat with us</Button>
+            {is_premium ? (
+              <Button handleClick={toggleChat}>Chat with us</Button>
+            ) : (
+              <UserStatus id={id} />
+            )}
           </div>
           {!inIframe && (
             <p className='atalki-cross' onClick={() => toggelFaqBox(false)}>
-              <svg
-                fill='white'
-                xmlns='http://www.w3.org/2000/svg'
-                width='12'
-                height='12'
-                viewBox='0 0 24 24'
-              >
-                <path d='M23.954 21.03l-9.184-9.095 9.092-9.174-2.832-2.807-9.09 9.179-9.176-9.088-2.81 2.81 9.186 9.105-9.095 9.184 2.81 2.81 9.112-9.192 9.18 9.1z' />
-              </svg>
+              <CloseIcon />
             </p>
           )}
         </div>
@@ -135,15 +131,7 @@ const FAQPage = ({
           ></input>
 
           <button onClick={getMatchingQas} className='atalki-search-button'>
-            <svg
-              width='24'
-              height='24'
-              xmlns='http://www.w3.org/2000/svg'
-              fill-rule='evenodd'
-              clip-rule='evenodd'
-            >
-              <path d='M15.853 16.56c-1.683 1.517-3.911 2.44-6.353 2.44-5.243 0-9.5-4.257-9.5-9.5s4.257-9.5 9.5-9.5 9.5 4.257 9.5 9.5c0 2.442-.923 4.67-2.44 6.353l7.44 7.44-.707.707-7.44-7.44zm-6.353-15.56c4.691 0 8.5 3.809 8.5 8.5s-3.809 8.5-8.5 8.5-8.5-3.809-8.5-8.5 3.809-8.5 8.5-8.5z' />
-            </svg>
+            <SearchIcon />
           </button>
         </div>
       </div>
@@ -168,12 +156,7 @@ const FAQPage = ({
                     visibleAnswerId !== id ? '' : 'active-section'
                   }`}
                   style={{
-                    backgroundColor:
-                      visibleAnswerId === id
-                        ? secColor
-                          ? secColor
-                          : 'aliceblue'
-                        : '',
+                    backgroundColor: visibleAnswerId === id ? 'aliceblue' : '',
                   }}
                 >
                   <div
@@ -187,13 +170,7 @@ const FAQPage = ({
                     }}
                   >
                     <RichFaqDisplay id={id} data={ques} />
-                    <svg
-                      className='atalki-chevron-down'
-                      xmlns='http://www.w3.org/2000/svg'
-                      viewBox='0 0 448 512'
-                    >
-                      <path d='M224 416c-8.188 0-16.38-3.125-22.62-9.375l-192-192c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L224 338.8l169.4-169.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-192 192C240.4 412.9 232.2 416 224 416z' />
-                    </svg>
+                    <ChevronDown isActive={visibleAnswerId === id} />
                   </div>
                   <div
                     className={`atalki-widget-answer ${
