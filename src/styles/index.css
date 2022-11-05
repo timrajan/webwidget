@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&family=Mukta:wght@200;300;400;500;600&display=swap');
 
+@import url('./chat.css');
+
 * {
   margin: 0;
   padding: 0;
@@ -21,6 +23,59 @@ p {
   font-family: 'Cairo', sans-serif !important;
 }
 
+#atalki-main-container .flex {
+  display: flex;
+}
+
+#atalki-main-container .jcsb {
+  justify-content: space-between;
+}
+
+#atalki-main-container .aic {
+  align-items: center;
+}
+
+#atalki-main-container .btn {
+  border: 1px solid #fff;
+  background-color: transparent;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 5px;
+  font-weight: 500;
+  font-family: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+  outline: none;
+  appearance: none;
+}
+
+#atalki-main-container .input {
+  padding: 8px 12px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  color: #333;
+  font-weight: 400;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  width: 100%;
+  border: 1px solid #c0dcd2;
+  box-shadow: none;
+  transition: box-shadow 0.1s ease-in;
+}
+
+#atalki-main-container .textarea {
+  resize: none;
+  padding: 6px 8px;
+}
+#atalki-main-container .textarea::-webkit-scrollbar {
+  display: none;
+}
+
+#atalki-main-container .input:focus {
+  box-shadow: 0 0 0 1px #3d9bf8;
+}
+
 #atalki-main-container .atalki-widget-container {
   position: relative;
   width: 520px;
@@ -39,6 +94,10 @@ p {
   color: white;
   line-height: 24px;
   z-index: 999999999999;
+}
+
+#atalki-main-container .atalki-widget-faq-container {
+  height: 484px;
 }
 
 #atalki-main-container .atalki-widget-container p {
@@ -65,7 +124,7 @@ p {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
+  padding: 16px 20px;
 }
 
 #atalki-main-container .atalki-widget-input-container {
@@ -76,6 +135,7 @@ p {
   display: flex;
   align-items: center;
   padding: 8px !important;
+  margin-top: 4px !important;
 }
 #atalki-main-container .atalki-widget-input-container input {
   width: 100%;
@@ -149,6 +209,7 @@ p {
 #atalki-main-container .atalki-title {
   font-size: 1.25rem;
   font-weight: bold;
+  margin-right: 8px !important;
 }
 
 #atalki-main-container .atalki-mobile-title {
@@ -305,16 +366,17 @@ p {
   flex-shrink: 0;
 }
 
-#atalki-main-container .atalki-top-title-wrapper {
-  display: flex;
-  align-items: center;
-}
-
 #atalki-main-container .atalki-status-icon {
   height: 16px;
   width: 16px;
   border-radius: 100px;
   margin-left: 10px;
+  margin-bottom: 14px;
+}
+
+#atalki-main-container .atalki-status {
+  margin-bottom: 14px;
+  margin-left: 5px;
 }
 
 #atalki-main-container .atalki-blink {
@@ -375,7 +437,7 @@ p {
     font-weight: bold;
     display: block;
     font-size: 1rem;
-    margin-right: 5px;
+    margin-right: 8px !important;
   }
 }
 

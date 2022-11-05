@@ -1,0 +1,69 @@
+#atalki-main-container .chat {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 60px 1fr 60px;
+}
+
+#atalki-main-container .chat--header {
+  background-color: #027ffb;
+  padding: 16px 12px;
+}
+
+#atalki-main-container .chat--title {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+#atalki-main-container .chat--list {
+  background-color: #fff;
+  padding: 24px 20px;
+  overflow-y: auto;
+}
+
+#atalki-main-container .message {
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  padding: 0 16px 0 0;
+}
+#atalki-main-container .message-text {
+  padding: 12px 16px;
+  text-align: left;
+  color: #222d38;
+  font-size: 15px;
+  background-color: #f1f0f0;
+  min-width: 40px;
+  max-width: 100%;
+  border-radius: 8px;
+  overflow-wrap: break-word;
+}
+#atalki-main-container .message.end {
+  align-items: flex-end;
+  padding: 0 0 0 16px;
+}
+
+#atalki-main-container .message.end .message-text {
+  background-color: #18c139;
+  color: #fff;
+}
+
+#atalki-main-container .chat--footer {
+  color: #000;
+  padding: 16px;
+  width: 100%;
+  background-color: transparent;
+}
+
+#atalki-main-container .chat--footer:first-child {
+  flex-grow: 1;
+}
+
+#atalki-main-container .chat--footer .footer-btn {
+  margin-left: 8px;
+  padding: 6px 10px;
+  background-color: #027ffb;
+}
+
+#atalki-main-container .chat--footer .icon {
+  margin-right: 6px;
+}

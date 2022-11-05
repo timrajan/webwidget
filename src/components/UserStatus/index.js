@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-const UserOnline = ({ id }) => {
+const UserStatus = ({ id }) => {
   const [isUserActive, setIsUserActive] = useState(false)
 
   useEffect(() => {
@@ -15,11 +15,11 @@ const UserOnline = ({ id }) => {
         console.log('failed to get user status', error)
       }
     }
-    checkStatus()
-    const interval = setInterval(() => checkStatus(), 30000)
-    return () => {
-      clearInterval(interval)
-    }
+    // checkStatus()
+    // const interval = setInterval(() => checkStatus(), 30000)
+    // return () => {
+    //   clearInterval(interval)
+    // }
   }, [])
 
   return (
@@ -27,22 +27,11 @@ const UserOnline = ({ id }) => {
       <span
         className={`atalki-status-icon ${isUserActive ? 'online' : 'offline'}`}
       />
-
-      {isUserActive ? (
-        <a
-          className='atalki-page-link'
-          href={`https://www.atalki.com/doc-page/${id}`}
-          target='_blank'
-          rel='noopener'
-          style={{ marginLeft: '3px' }}
-        >
-          Chat With Us
-        </a>
-      ) : (
-        <span style={{ marginLeft: '3px' }}>Offline</span>
-      )}
+      <span className='atalki-status'>
+        {isUserActive ? 'Online' : 'Offline'}
+      </span>
     </>
   )
 }
 
-export default UserOnline
+export default UserStatus

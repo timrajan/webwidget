@@ -2,6 +2,7 @@ import React from 'react'
 import { createRoot } from 'react-dom/client'
 import css from 'bundle-text:./styles/index.css'
 import App from './App'
+import { GlobalProvider } from './context/globalContext'
 
 let style = document.createElement('style')
 style.type = 'text/css'
@@ -32,7 +33,9 @@ if (scriptTag) {
   const root = createRoot(widgetDiv)
   root.render(
     <React.StrictMode>
-      <App domelement={widgetDiv} inIframe={inIframe} />
+      <GlobalProvider>
+        <App domelement={widgetDiv} inIframe={inIframe} />
+      </GlobalProvider>
     </React.StrictMode>
   )
 }
