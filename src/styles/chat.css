@@ -5,7 +5,6 @@
 }
 
 #atalki-main-container .chat--header {
-  background-color: #027ffb;
   padding: 16px 12px;
 }
 
@@ -94,9 +93,8 @@
 #atalki-main-container .chat--footer .footer-btn {
   margin-left: 8px;
   padding: 6px 10px;
-  background-color: #027ffb;
 }
 
-#atalki-main-container .chat--footer .icon {
-  margin-right: 6px;
+#atalki-main-container .chat--footer span {
+  margin-left: 6px;
 }

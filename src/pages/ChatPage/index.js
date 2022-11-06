@@ -109,15 +109,13 @@ const ChatPage = ({ toggleChat }) => {
     socket.onmessage = (event) => {
       let { message } = JSON.parse(event.data)
 
-      let newMsg = [
-        {
-          user_id: localStorage.username,
-          added_on: new Date(),
-          is_owner: true,
-          message,
-          sent: true,
-        },
-      ]
+      const newMsg = {
+        user_id: localStorage.username,
+        added_on: new Date(),
+        is_owner: true,
+        message,
+        sent: true,
+      }
       setMessages((prevMsg) => [...prevMsg, newMsg])
     }
   }, [])

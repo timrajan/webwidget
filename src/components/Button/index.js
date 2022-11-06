@@ -1,8 +1,19 @@
 import React from 'react'
 
-const Button = ({ handleClick, children, cls = '', type = 'button' }) => {
+const Button = ({
+  handleClick,
+  color,
+  children,
+  cls = '',
+  type = 'button',
+}) => {
   return (
-    <button className={`btn flex aic ${cls}`} type={type} onClick={handleClick}>
+    <button
+      style={{ backgroundColor: color ? color : '' }}
+      className={`btn flex aic ${cls}`}
+      type={type}
+      onClick={handleClick}
+    >
       {children}
     </button>
   )
