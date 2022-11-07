@@ -1,7 +1,9 @@
-import dayjs from 'dayjs'
 import React from 'react'
 import { API_DOMAIN } from '../../../../../constant'
 import { useUserContext } from '../../../../../context/userContext'
+
+const formatTime = (date = new Date()) =>
+  `${date.getHours()}:${date.getMinutes()}`
 
 const ChatMessage = ({ message, isOwner, msgDate }) => {
   const { avatar } = useUserContext()
@@ -17,7 +19,7 @@ const ChatMessage = ({ message, isOwner, msgDate }) => {
           <div className='message-text'>
             <p>{message}</p>
           </div>
-          <span className='message-date'>{dayjs(msgDate).format('HH:mm')}</span>
+          <span className='message-date'>{formatTime(new Date(msgDate))}</span>
         </div>
       </div>
     </div>

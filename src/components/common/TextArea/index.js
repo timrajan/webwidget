@@ -1,12 +1,11 @@
 import React from 'react'
 
-const TextArea = ({ placeholder, onChange, value, type = 'text' }) => {
+const TextArea = ({ placeholder, myRef, type = 'text' }) => {
   return (
     <textarea
       type={type}
+      ref={myRef}
       placeholder={placeholder}
-      value={value}
-      onChange={onChange}
       className='input textarea'
       rows={1}
     />

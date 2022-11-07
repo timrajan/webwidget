@@ -6,15 +6,17 @@ const Button = ({
   children,
   cls = '',
   type = 'button',
+  loading,
 }) => {
   return (
     <button
       style={{ backgroundColor: color ? color : '' }}
       className={`btn flex aic ${cls}`}
       type={type}
+      disabled={loading}
       onClick={handleClick}
     >
-      {children}
+      {loading ? <div className='button--loading'></div> : <>{children}</>}
     </button>
   )
 }
