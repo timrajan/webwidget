@@ -4,6 +4,9 @@ import css from 'bundle-text:./styles/index.css'
 import App from './App'
 import { GlobalProvider } from './context/globalContext'
 import { UserProvider } from './context/userContext'
+import { UserStatusProvider } from './context/userStatusContext'
+import { FaqProvider } from './context/faqContext'
+import { ChatProvider } from './context/chatContext'
 
 let style = document.createElement('style')
 style.type = 'text/css'
@@ -36,7 +39,13 @@ if (scriptTag) {
     <React.StrictMode>
       <GlobalProvider>
         <UserProvider>
-          <App domelement={widgetDiv} inIframe={inIframe} />
+          <UserStatusProvider>
+            <FaqProvider>
+              <ChatProvider>
+                <App domelement={widgetDiv} inIframe={inIframe} />
+              </ChatProvider>
+            </FaqProvider>
+          </UserStatusProvider>
         </UserProvider>
       </GlobalProvider>
     </React.StrictMode>
