@@ -18,7 +18,7 @@ const ChatHeader = ({ toggleChat }) => {
         </p>
         <UserStatus id={id} />
       </div>
-      <Button handleClick={toggleChat}>FAQs</Button>
+      <Button handleClick={toggleChat}>FAQ View</Button>
     </div>
   )
 }

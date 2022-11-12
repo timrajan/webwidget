@@ -1,7 +1,9 @@
 import React, { useEffect, useRef } from 'react'
+import { useChatContext } from '../../../../context/chatContext'
 import ChatMessage from './ChatMessage'
 
-const ChatList = ({ messages }) => {
+const ChatList = () => {
+  const { messages } = useChatContext()
   const msgListRef = useRef(null)
   useEffect(() => {
     if (msgListRef?.current) {

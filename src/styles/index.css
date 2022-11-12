@@ -52,6 +52,7 @@ p {
 
 #atalki-main-container .btn:disabled {
   opacity: 0.8;
+  cursor: not-allowed;
 }
 
 #atalki-main-container .button--loading {
@@ -104,6 +105,9 @@ p {
 #atalki-main-container .textarea {
   resize: none;
   padding: 6px 8px;
+  min-height: 41px;
+  max-height: 49px;
+  overflow-y: auto;
 }
 #atalki-main-container .textarea::-webkit-scrollbar {
   display: none;
@@ -169,17 +173,18 @@ p {
   border-radius: 5px;
   width: 100%;
   background-color: white !important;
-  display: flex;
-  align-items: center;
   padding: 8px !important;
   margin-top: 4px !important;
 }
-#atalki-main-container .atalki-widget-input-container input {
+#atalki-main-container
+  .atalki-widget-input-container
+  .atalki-widget-search-bar {
   width: 100%;
   outline: none;
   border: none;
   border-radius: 5px;
   height: 24px;
+  color: #333;
   padding: 8px;
   font-family: 'Cairo', sans-serif !important;
 }
@@ -189,7 +194,7 @@ p {
   height: 320px;
   min-height: 320px;
   overflow-y: scroll;
-  color: black;
+  color: #333;
   background-color: white;
   padding: 0 12px;
 }
@@ -372,7 +377,7 @@ p {
 }
 
 #atalki-main-container .atalki-widget-faq-footer {
-  color: black;
+  color: #333;
   display: flex;
   justify-content: space-between;
   background-color: #027ffb;
@@ -414,11 +419,9 @@ p {
   width: 16px;
   border-radius: 100px;
   margin-left: 10px;
-  margin-bottom: 14px;
 }
 
 #atalki-main-container .atalki-status {
-  margin-bottom: 14px;
   margin-left: 5px;
 }
 

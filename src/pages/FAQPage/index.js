@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Button from '../../components/Button'
 import Footer from '../../components/Footer'
 import RichFaqDisplay from '../../components/RichFaqDisplay'
 import UserStatus from '../../components/UserStatus'
+import { API_URL } from '../../constant'
+import { useFaqContext } from '../../context/faqContext'
 import { useGlobalContext } from '../../context/globalContext'
 import { useUserContext } from '../../context/userContext'
 import ChevronDown from '../../icons/chevronDown'
@@ -12,21 +14,10 @@ import SearchIcon from '../../icons/searchIcon'
 const FAQPage = ({ toggelFaqBox, expand, toggleChat }) => {
   const { is_premium } = useUserContext()
   const { id, color, inIframe } = useGlobalContext()
+  const { faqs } = useFaqContext()
   const [visibleAnswerId, updateVisibleAnswerId] = useState(null)
-  const [qas, updatequas] = useState([])
-  const [query, updateQuery] = useState('')
-  const [loading, updateLoading] = useState(false)
-
-  const getQa = () => {
-    fetch(`https://www.atalki.com/api/v3/gettopnquestions/${btoa(id)}/15/`)
-      .then((res) => res.json())
-      .then((data) => updatequas(data))
-      .catch((err) => console.log('failed to fetch FAQs', err))
-  }
-
-  useEffect(() => {
-    getQa()
-  }, [])
+  const [qas, updatequas] = useState(faqs)
+  const inputRef = useRef(null)
 
   useEffect(() => {
     addClick()
@@ -52,28 +43,23 @@ const FAQPage = ({ toggelFaqBox, expand, toggleChat }) => {
     }
   }
 
-  const getMatchingQas = () => {
-    if (query.length === 0) return getQa()
-    updateLoading(true)
-    fetch(
-      `https://www.atalki.com/api/v2/gettopnmatchingquestions/${btoa(
-        id
-      )}/15/${query}/`
-    )
+  const getMatchingQas = (e) => {
+    e.preventDefault()
+    const query = inputRef?.current?.value
+    if (query.length === 0) return updatequas(faqs)
+    fetch(`${API_URL}/gettopnmatchingquestions/${btoa(id)}/15/${query}/`)
       .then((res) => res.json())
       .then((data) => {
-        updateLoading(false)
         updatequas(data)
       })
       .catch((err) => {
-        updateLoading(false)
         updatequas([])
         console.log('failed to fetch FAQs', err)
       })
   }
 
   useEffect(() => {
-    if (qas.length > 0) {
+    if (faqs.length > 0) {
       const myScript = document.createElement('script')
       myScript.type = 'application/ld+json'
       const content = {
@@ -82,7 +68,7 @@ const FAQPage = ({ toggelFaqBox, expand, toggleChat }) => {
         mainEntity: [],
       }
 
-      qas.forEach((qa) => {
+      faqs.forEach((qa) => {
         content.mainEntity.push({
           '@type': 'Question',
           name: `${qa.question}`,
@@ -95,7 +81,7 @@ const FAQPage = ({ toggelFaqBox, expand, toggleChat }) => {
       myScript.textContent = JSON.stringify(content, null, 2)
       document.head.appendChild(myScript)
     }
-  }, [qas])
+  }, [faqs])
   return (
     <div
       className='atalki-widget-faq-container'
@@ -110,7 +96,7 @@ const FAQPage = ({ toggelFaqBox, expand, toggleChat }) => {
             <p className='atalki-title'>Frequently asked Questions</p>
             <p className='atalki-mobile-title'>FAQs</p>
             {is_premium ? (
-              <Button handleClick={toggleChat}>Chat with us</Button>
+              <Button handleClick={toggleChat}>Chat View</Button>
             ) : (
               <UserStatus id={id} />
             )}
@@ -122,17 +108,18 @@ const FAQPage = ({ toggelFaqBox, expand, toggleChat }) => {
           )}
         </div>
         <div className='atalki-widget-input-container'>
-          <input
-            id='atalki-widget-search-bar'
-            className='atalki-widget-search-bar'
-            placeholder='I am looking for'
-            value={query}
-            onChange={(e) => updateQuery(e.target.value)}
-          ></input>
+          <form onSubmit={getMatchingQas} className='flex aic'>
+            <input
+              id='atalki-widget-search-bar'
+              className='atalki-widget-search-bar'
+              placeholder='I am looking for'
+              ref={inputRef}
+            />
 
-          <button onClick={getMatchingQas} className='atalki-search-button'>
-            <SearchIcon />
-          </button>
+            <button type='submit' className='atalki-search-button'>
+              <SearchIcon />
+            </button>
+          </form>
         </div>
       </div>
       <div className='atalki-widget-faq-body' id='atalki-widget-faq-body'>
