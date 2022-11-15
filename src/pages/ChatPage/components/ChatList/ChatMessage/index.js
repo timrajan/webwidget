@@ -3,8 +3,11 @@ import { API_DOMAIN } from '../../../../../constant'
 import { useGlobalContext } from '../../../../../context/globalContext'
 import { useUserContext } from '../../../../../context/userContext'
 
-const formatTime = (date = new Date()) =>
-  `${date.getHours()}:${date.getMinutes()}`
+const formatTime = (date = new Date()) => {
+  const minutes = date.getMinutes().toString().padStart(2, '0')
+  const hours = date.getHours().toString().padStart(2, '0')
+  return `${hours}:${minutes}`
+}
 
 const ChatMessage = ({ message, isOwner, msgDate }) => {
   const { color } = useGlobalContext()

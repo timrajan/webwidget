@@ -96,7 +96,7 @@ const FAQPage = ({ toggelFaqBox, expand, toggleChat }) => {
             <p className='atalki-title'>Frequently asked Questions</p>
             <p className='atalki-mobile-title'>FAQs</p>
             {is_premium ? (
-              <Button handleClick={toggleChat}>Chat View</Button>
+              <Button handleClick={toggleChat}>Switch To Chat View</Button>
             ) : (
               <UserStatus id={id} />
             )}
