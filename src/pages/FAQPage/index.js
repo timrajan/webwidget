@@ -20,12 +20,16 @@ const FAQPage = ({ toggelFaqBox, expand, toggleChat }) => {
   const { id, color, inIframe } = useGlobalContext()
   const { faqs } = useFaqContext()
   const [visibleAnswerId, updateVisibleAnswerId] = useState(null)
-  const [qas, updateqas] = useState(faqs)
+  const [qas, updateqas] = useState([])
   const [filterType, setFilterType] = useState('')
   const inputRef = useRef(null)
   const [audioUrl, setAudioUrl] = useState('')
   const [youtubeUrl, setYoutubeUrl] = useState('')
   const [showModal, setShowModal] = useState(false)
+
+  useEffect(() => {
+    updateqas(faqs)
+  }, [faqs])
 
   useEffect(() => {
     addClick()
@@ -52,11 +56,16 @@ const FAQPage = ({ toggelFaqBox, expand, toggleChat }) => {
   const getMatchingQas = (e) => {
     e.preventDefault()
     const query = inputRef?.current?.value
-    if (query.length === 0) return updateqas(faqs)
+    if (query?.length === 0) {
+      updateqas(faqs)
+      setFilterType('')
+      return
+    }
     fetch(`${API_URL}/gettopnmatchingquestions/${btoa(id)}/15/${query}/`)
       .then((res) => res.json())
       .then((data) => {
         updateqas(data)
+        setFilterType('')
       })
       .catch((err) => {
         updateqas([])
@@ -100,7 +109,7 @@ const FAQPage = ({ toggelFaqBox, expand, toggleChat }) => {
   }
 
   useEffect(() => {
-    if (faqs.length > 0) {
+    if (faqs?.length > 0) {
       const myScript = document.createElement('script')
       myScript.type = 'application/ld+json'
       const content = {
@@ -178,7 +187,7 @@ const FAQPage = ({ toggelFaqBox, expand, toggleChat }) => {
         </div>
       </div>
       <div className='atalki-widget-faq-body' id='atalki-widget-faq-body'>
-        {qas.length > 0 ? (
+        {qas?.length > 0 ? (
           qas.map(
             ({
               id,
@@ -190,8 +199,8 @@ const FAQPage = ({ toggelFaqBox, expand, toggleChat }) => {
               audio_answer,
               youtube_answer,
             }) =>
-              ques.length > 0 &&
-              ans.length > 0 &&
+              ques?.length > 0 &&
+              ans?.length > 0 &&
               !is_expired && (
                 <div
                   key={id}
