@@ -7,17 +7,25 @@ import { API_URL } from '../../constant'
 import { useFaqContext } from '../../context/faqContext'
 import { useGlobalContext } from '../../context/globalContext'
 import { useUserContext } from '../../context/userContext'
+import AudioIcon from '../../icons/audioIcon'
 import ChevronDown from '../../icons/chevronDown'
 import CloseIcon from '../../icons/closeIcon'
 import SearchIcon from '../../icons/searchIcon'
+import YoutubeIcon from '../../icons/youtubeIcon'
+import AudioView from './AudioView'
+import YoutubeView from './YoutubeView'
 
 const FAQPage = ({ toggelFaqBox, expand, toggleChat }) => {
   const { is_premium } = useUserContext()
   const { id, color, inIframe } = useGlobalContext()
   const { faqs } = useFaqContext()
   const [visibleAnswerId, updateVisibleAnswerId] = useState(null)
-  const [qas, updatequas] = useState(faqs)
+  const [qas, updateqas] = useState(faqs)
+  const [filterType, setFilterType] = useState('')
   const inputRef = useRef(null)
+  const [audioUrl, setAudioUrl] = useState('')
+  const [youtubeUrl, setYoutubeUrl] = useState('')
+  const [showModal, setShowModal] = useState(false)
 
   useEffect(() => {
     addClick()
@@ -25,13 +33,11 @@ const FAQPage = ({ toggelFaqBox, expand, toggleChat }) => {
 
   const addClick = () => {
     const widgetBody = document.getElementById('atalki-widget-faq-body')
-    console.log({ widgetBody })
     if (widgetBody) widgetBody.addEventListener('click', handlefaqClick)
   }
 
   const handlefaqClick = (event) => {
     const container = event.target.closest('.atalki-widget-faq')
-    console.log({ container })
     if (container) {
       const questionId = Number(container.dataset.questionId)
       if (questionId) {
@@ -46,16 +52,51 @@ const FAQPage = ({ toggelFaqBox, expand, toggleChat }) => {
   const getMatchingQas = (e) => {
     e.preventDefault()
     const query = inputRef?.current?.value
-    if (query.length === 0) return updatequas(faqs)
+    if (query.length === 0) return updateqas(faqs)
     fetch(`${API_URL}/gettopnmatchingquestions/${btoa(id)}/15/${query}/`)
       .then((res) => res.json())
       .then((data) => {
-        updatequas(data)
+        updateqas(data)
       })
       .catch((err) => {
-        updatequas([])
+        updateqas([])
         console.log('failed to fetch FAQs', err)
       })
+  }
+
+  const handleFilter = (e, type) => {
+    if (filterType === type) {
+      setFilterType('')
+      updateqas(faqs)
+      return
+    }
+    if (type === 'audio') {
+      const audioFaqs = faqs?.filter((faq) => faq?.audio_answer !== null)
+      updateqas(audioFaqs)
+    }
+    if (type === 'youtube') {
+      const youtubeFaqs = faqs?.filter((faq) => faq?.youtube_answer !== null)
+      updateqas(youtubeFaqs)
+    }
+    setFilterType(type)
+  }
+
+  const handleWatch = (e, type, url) => {
+    e.stopPropagation()
+    if (type === 'audio' && url) {
+      setAudioUrl(url)
+      setShowModal(true)
+    }
+    if (type === 'youtube' && url) {
+      setYoutubeUrl(url)
+      setShowModal(true)
+    }
+  }
+
+  const closeModal = () => {
+    setShowModal(false)
+    setYoutubeUrl('')
+    setAudioUrl('')
   }
 
   useEffect(() => {
@@ -96,10 +137,24 @@ const FAQPage = ({ toggelFaqBox, expand, toggleChat }) => {
             <p className='atalki-title'>Frequently asked Questions</p>
             <p className='atalki-mobile-title'>FAQs</p>
             {is_premium ? (
-              <Button handleClick={toggleChat}>Switch To Chat View</Button>
+              <Button handleClick={toggleChat}> Chat View</Button>
             ) : (
               <UserStatus id={id} />
             )}
+            <div className='filter-icons flex'>
+              <span
+                className='flex aic'
+                onClick={(e) => handleFilter(e, 'youtube')}
+              >
+                <YoutubeIcon isActive={filterType === 'youtube'} />
+              </span>
+              <span
+                className='flex aic'
+                onClick={(e) => handleFilter(e, 'audio')}
+              >
+                <AudioIcon isActive={filterType === 'audio'} />
+              </span>
+            </div>
           </div>
           {!inIframe && (
             <p className='atalki-cross' onClick={() => toggelFaqBox(false)}>
@@ -132,6 +187,8 @@ const FAQPage = ({ toggelFaqBox, expand, toggleChat }) => {
               qa_highlight_color,
               blink,
               is_expired,
+              audio_answer,
+              youtube_answer,
             }) =>
               ques.length > 0 &&
               ans.length > 0 &&
@@ -164,6 +221,29 @@ const FAQPage = ({ toggelFaqBox, expand, toggleChat }) => {
                       visibleAnswerId !== id ? 'atalki-hideText' : ''
                     }`}
                   >
+                    <div className='flex'>
+                      {audio_answer && (
+                        <Button
+                          handleClick={(e) => {
+                            handleWatch(e, 'audio', audio_answer)
+                          }}
+                          color={color}
+                        >
+                          Listen Audio
+                        </Button>
+                      )}
+                      {youtube_answer && (
+                        <Button
+                          handleClick={(e) => {
+                            handleWatch(e, 'youtube', youtube_answer)
+                          }}
+                          color={color}
+                        >
+                          Watch Youtube
+                        </Button>
+                      )}
+                    </div>
+
                     <RichFaqDisplay data={ans} />
                   </div>
                 </div>
@@ -176,6 +256,13 @@ const FAQPage = ({ toggelFaqBox, expand, toggleChat }) => {
         )}
       </div>
       <Footer color={color} id={id} />
+      {showModal && (
+        <div className='watch-modal' style={{ backgroundColor: color }}>
+          <Button handleClick={closeModal}>Switch To FAQ View</Button>
+          {audioUrl && <AudioView audio_url={audioUrl} />}
+          {youtubeUrl && <YoutubeView yt_url={youtubeUrl} />}
+        </div>
+      )}
     </div>
   )
 }

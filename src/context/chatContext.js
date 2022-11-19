@@ -1,59 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { useGlobalContext } from './globalContext'
 import { useUserStatusContext } from './userStatusContext'
-import { API_SOCKET_URL } from '../constant'
+import { API_SOCKET_URL, API_URL } from '../constant'
 import { generate_username } from '../utils/generateName'
 import { generate_profile } from '../utils/generateProfile'
-
-const dummyMessages = [
-  {
-    message: 'hello',
-    user_id: 'QS64t4fe',
-    added_on: '2022-10-29T05:49:15.934596Z',
-    is_owner: false,
-    profile_image: 'crab',
-    link: null,
-    name: null,
-  },
-  {
-    message: 'hy',
-    user_id: 'QS64t4fe',
-    added_on: '2022-10-29T08:19:23.384779Z',
-    is_owner: true,
-    profile_image: 'crab',
-    link: null,
-    name: null,
-  },
-  {
-    message: 'hhlk',
-    user_id: 'QS64t4fe',
-    added_on: '2022-10-29T10:49:36.469275Z',
-    is_owner: false,
-    profile_image: 'crab',
-    link: null,
-    name: null,
-  },
-  {
-    message:
-      'iugihkiougjiuguuyviguihhhuouhhouguyfolguoilkgogiugougligg gdsfdfjfgsdfdhdhdsdgds stsetewtery',
-    user_id: 'QS64t4fe',
-    added_on: '2022-10-29T02:20:28.332576Z',
-    is_owner: true,
-    profile_image: 'crab',
-    link: null,
-    name: null,
-  },
-  {
-    message:
-      'fgdrhfhdfgsdgdffggdsfdfjfgsdfdhdhdsdgds stsetewtery r r reyet  y re etrhetfetet t se fwe terhtdf bfgtwe tetjhtgdfhteg d h fgdgfdhdfh',
-    user_id: 'QS64t4fe',
-    added_on: '2022-10-29T05:50:45.238515Z',
-    is_owner: false,
-    profile_image: 'crab',
-    link: null,
-    name: null,
-  },
-]
 
 const initialState = {
   messages: [],
@@ -68,11 +18,26 @@ const ChatProvider = ({ children }) => {
   const { isUserActive } = useUserStatusContext()
   const [messages, setMessages] = useState([])
   const [socket, updateSocket] = useState('')
-  const [msgSent, setMsgSent] = useState(false)
+  const [smsSent, setSmsSent] = useState(false)
+  const [dummyMsgSent, setDummyMsgSent] = useState(false)
 
-  const toggleSentMsg = () => setMsgSent(true)
+  const toggleSentSms = () => setSmsSent(true)
+  const toggleDummySentMsg = () => setDummyMsgSent(true)
 
-  const handleSendMessages = (msgText) => {
+  const sendEmailNotif = async (msg) => {
+    try {
+      const res = await fetch(`${API_URL}/sendofflineowneremail/${id}/`, {
+        method: 'POST',
+        body: JSON.stringify({ message: msg }),
+        headers: { 'Content-type': 'application/json; charset=UTF-8' },
+      })
+      const data = await res.json()
+    } catch (error) {
+      console.log('Error', error)
+    }
+  }
+
+  const handleSendMessages = async (msgText, notifyOwner = true) => {
     if (!msgText) return
     const newMsg = {
       message: msgText,
@@ -88,11 +53,13 @@ const ChatProvider = ({ children }) => {
     payload['username'] = localStorage.getItem('username')
     payload['profile_image'] = localStorage.getItem('chatuserprofileimage')
     payload['doc_id'] = parseInt(id)
-    if (isUserActive) {
+    setMessages((prevMsg) => [...prevMsg, newMsg])
+    if (socket) {
       socket.send(JSON.stringify(payload))
     }
-
-    setMessages((prevMsg) => [...prevMsg, newMsg])
+    if (notifyOwner) {
+      await sendEmailNotif(msgText)
+    }
   }
 
   useEffect(() => {
@@ -152,8 +119,10 @@ const ChatProvider = ({ children }) => {
     <ChatContext.Provider
       value={{
         messages,
-        msgSent,
-        toggleSentMsg,
+        smsSent,
+        toggleSentSms,
+        dummyMsgSent,
+        toggleDummySentMsg,
         handleSendMessages,
       }}
     >

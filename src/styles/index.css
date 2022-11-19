@@ -34,6 +34,9 @@ p {
 #atalki-main-container .aic {
   align-items: center;
 }
+#atalki-main-container .jic {
+  justify-content: center;
+}
 
 #atalki-main-container .btn {
   border: 1px solid #fff;
@@ -138,6 +141,7 @@ p {
 }
 
 #atalki-main-container .atalki-widget-faq-container {
+  position: relative;
   height: 484px;
 }
 
@@ -156,6 +160,26 @@ p {
   align-items: center;
   margin-bottom: 12px;
 }
+
+#atalki-main-container .atalki-widget-top-header .filter-icons {
+  margin-left: 8px;
+}
+
+#atalki-main-container .atalki-widget-top-header .filter-icons .icon {
+  height: 32px;
+  width: 32px;
+  cursor: pointer;
+  padding: 0 4px;
+}
+
+#atalki-main-container
+  .atalki-widget-top-header
+  .filter-icons
+  .filter-icon-active {
+  border: 1px solid #fff;
+  border-radius: 5px;
+}
+
 #atalki-main-container .atalki-cross {
   cursor: pointer;
   text-decoration: underline;
@@ -225,6 +249,8 @@ p {
 #atalki-main-container .atalki-widget-answer {
   animation: animate 0.7s;
   padding: 4px 8px;
+  max-height: 200px;
+  overflow-y: auto;
 }
 
 @keyframes animate {
@@ -511,4 +537,38 @@ p {
 #atalki-main-container .richText a {
   text-decoration: underline !important;
   color: #06c !important;
+}
+
+/* Modal */
+#atalki-main-container .atalki-widget-faq-container .watch-modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 100;
+  padding: 16px;
+}
+
+#atalki-main-container .atalki-widget-faq-container .watch-modal .audio {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+}
+
+#atalki-main-container .atalki-widget-faq-container .watch-modal .youtube {
+  margin-top: 8px;
+  border-radius: 8px;
+  height: 400px;
+  box-shadow: 0 0 8px rgba(237, 237, 240, 0.8);
+}
+
+#atalki-main-container
+  .atalki-widget-faq-container
+  .watch-modal
+  .youtube
+  #yt-iframe {
+  border-radius: 8px;
 }
