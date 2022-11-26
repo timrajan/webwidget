@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import FAQPage from '../FAQPage'
 import ChatPage from '../ChatPage'
-
+import { useUserStatusContext } from '../../context/userStatusContext'
 const AtalkiWidget = ({ id, color, secColor, inIframe }) => {
   const [expand, toggelFaqBox] = useState(inIframe || false)
   const [showChatPage, setShowChatPage] = useState(false)
@@ -37,12 +37,22 @@ const AtalkiWidget = ({ id, color, secColor, inIframe }) => {
       )}
     </div>
   ) : (
+    <FAQToggle color={color} toggelFaqBox={toggelFaqBox} />
+  )
+}
+
+const FAQToggle = ({ color, toggelFaqBox }) => {
+  const { isUserActive } = useUserStatusContext()
+  return (
     <div
-      className='atalki-faq-button'
+      className='atalki-faq-button flex aic'
       onClick={() => toggelFaqBox(true)}
       style={{ backgroundColor: color }}
     >
-      Frequently Asked Questions
+      <span
+        className={`atalki-status-icon ${isUserActive ? 'online' : 'offline'}`}
+      ></span>
+      <span style={{ marginLeft: '8px' }}>Frequently Asked Questions</span>
     </div>
   )
 }
