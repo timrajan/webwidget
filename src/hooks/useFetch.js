@@ -34,12 +34,12 @@ const reducer = (state, action) => {
   }
 }
 
-function useFetch(
+function useFetch({
   url,
   reqLoading = true,
   reqError = true,
-  isFetchAfterMount = false
-) {
+  isFetchAfterMount = false,
+}) {
   const [state, dispatch] = useReducer(reducer, initialState)
   const controllerRef = useRef(null)
 

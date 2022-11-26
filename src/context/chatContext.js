@@ -54,7 +54,7 @@ const ChatProvider = ({ children }) => {
     payload['profile_image'] = localStorage.getItem('chatuserprofileimage')
     payload['doc_id'] = parseInt(id)
     setMessages((prevMsg) => [...prevMsg, newMsg])
-    if (socket) {
+    if (socket && notifyOwner) {
       socket.send(JSON.stringify(payload))
     }
     if (notifyOwner) {

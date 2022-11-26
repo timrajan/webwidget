@@ -5,6 +5,7 @@ import { API_URL } from '../constant'
 
 const initialState = {
   faqs: [],
+  loading: false,
 }
 
 const FaqContext = React.createContext(initialState)
@@ -13,9 +14,9 @@ const useFaqContext = () => useContext(FaqContext)
 
 const FaqProvider = ({ children }) => {
   const { id } = useGlobalContext()
-  const { myFetch, data } = useFetch(
-    `${API_URL}/gettopnquestions/${btoa(id)}/15/`
-  )
+  const { myFetch, data, loading } = useFetch({
+    url: `${API_URL}/gettopnquestions/${btoa(id)}/15/`,
+  })
 
   useEffect(() => {
     if (!id) return
@@ -26,6 +27,7 @@ const FaqProvider = ({ children }) => {
     <FaqContext.Provider
       value={{
         faqs: data,
+        loading,
       }}
     >
       {children}

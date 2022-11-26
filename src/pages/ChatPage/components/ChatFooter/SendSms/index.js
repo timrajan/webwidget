@@ -10,10 +10,11 @@ const SendSms = ({ color, id }) => {
   const inputRef = useRef()
   const [loading, setLoading] = useState(false)
 
-  const getSmsResponse = async (msg) => {
+  const getSmsResponse = async () => {
     try {
       const res = await fetch(`${API_URL}/requestowneronlineresponse/${id}/`)
       const data = await res.json()
+      console.log('Data', data)
       if (data?.[0]?.body) {
         handleSendMessages(data?.[0]?.body, false)
       }
@@ -46,26 +47,27 @@ const SendSms = ({ color, id }) => {
     }
   }
 
-  const handleClick = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault()
     const msg = inputRef.current.value
     if (!msg || smsSent) return
     await requestSms()
     inputRef.current.value = ''
   }
   return (
-    <>
+    <form onSubmit={handleSubmit} className='chat--footer flex aic'>
       <Input myRef={inputRef} placeholder='I wish to connect with you..' />
       <Button
         cls='footer-btn'
         color={color}
-        handleClick={handleClick}
+        type='submit'
         disabled={loading || smsSent}
         loading={loading}
       >
         <SendIcon />
         <span> SMS</span>
       </Button>
-    </>
+    </form>
   )
 }
 

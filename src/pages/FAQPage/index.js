@@ -18,7 +18,7 @@ import YoutubeView from './YoutubeView'
 const FAQPage = ({ toggelFaqBox, expand, toggleChat }) => {
   const { is_premium } = useUserContext()
   const { id, color, inIframe } = useGlobalContext()
-  const { faqs } = useFaqContext()
+  const { faqs, loading } = useFaqContext()
   const [visibleAnswerId, updateVisibleAnswerId] = useState(null)
   const [qas, updateqas] = useState([])
   const [filterType, setFilterType] = useState('')
@@ -143,12 +143,15 @@ const FAQPage = ({ toggelFaqBox, expand, toggleChat }) => {
       >
         <div className='atalki-widget-top-header'>
           <div className='flex aic'>
-            <p className='atalki-title'>Frequently asked Questions</p>
+            <p className='atalki-title'>
+              {is_premium ? 'FAQs' : 'Frequently asked Questions'}
+            </p>
             <p className='atalki-mobile-title'>FAQs</p>
-            {is_premium ? (
-              <Button handleClick={toggleChat}> Chat View</Button>
-            ) : (
-              <UserStatus id={id} />
+            <UserStatus id={id} />
+          </div>
+          <div className='flex aic'>
+            {is_premium && (
+              <Button handleClick={toggleChat}> Switch to Chat View</Button>
             )}
             <div className='filter-icons flex'>
               <span
@@ -164,12 +167,15 @@ const FAQPage = ({ toggelFaqBox, expand, toggleChat }) => {
                 <AudioIcon isActive={filterType === 'audio'} />
               </span>
             </div>
+            {!inIframe && (
+              <div
+                className='atalki-cross flex aic'
+                onClick={() => toggelFaqBox(false)}
+              >
+                <CloseIcon />
+              </div>
+            )}
           </div>
-          {!inIframe && (
-            <p className='atalki-cross' onClick={() => toggelFaqBox(false)}>
-              <CloseIcon />
-            </p>
-          )}
         </div>
         <div className='atalki-widget-input-container'>
           <form onSubmit={getMatchingQas} className='flex aic'>
@@ -187,7 +193,11 @@ const FAQPage = ({ toggelFaqBox, expand, toggleChat }) => {
         </div>
       </div>
       <div className='atalki-widget-faq-body' id='atalki-widget-faq-body'>
-        {qas?.length > 0 ? (
+        {loading ? (
+          <div className='atalki-faq-reponse-container'>
+            <p>Loading FAQs</p>
+          </div>
+        ) : qas?.length > 0 ? (
           qas.map(
             ({
               id,

@@ -16,11 +16,11 @@ const useUserContext = () => useContext(UserContext)
 
 const UserProvider = ({ children }) => {
   const { id } = useGlobalContext()
-  const { myFetch, data } = useFetch(
-    `${API_URL}/getdocownerinfo/${btoa(id)}/`,
-    false,
-    false
-  )
+  const { myFetch, data } = useFetch({
+    url: `${API_URL}/getdocownerinfo/${btoa(id)}/`,
+    reqError: false,
+    reqLoading: false,
+  })
 
   useEffect(() => {
     if (id) {

@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react'
 import Button from '../../../../components/Button'
-import TextArea from '../../../../components/common/TextArea'
+import Input from '../../../../components/common/Input'
 import { useChatContext } from '../../../../context/chatContext'
 import { useGlobalContext } from '../../../../context/globalContext'
 import { useUserStatusContext } from '../../../../context/userStatusContext'
@@ -24,7 +24,8 @@ const ChatFooter = () => {
     }
   }, [dummyMsgSent, isUserActive])
 
-  const handleClick = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault()
     const msg = inputRef.current.value
     if (!msg) return
     handleSendMessages(msg)
@@ -32,17 +33,17 @@ const ChatFooter = () => {
   }
 
   return (
-    <div className='chat--footer flex aic'>
+    <>
       {!smsSent && !isUserActive && <SendSms color={color} id={id} />}
       {(smsSent || isUserActive) && (
-        <>
-          <TextArea myRef={inputRef} placeholder='Type your message..' />
-          <Button cls='footer-btn' color={color} handleClick={handleClick}>
+        <form onSubmit={handleSubmit} className='chat--footer flex aic'>
+          <Input myRef={inputRef} placeholder='Type your message..' />
+          <Button cls='footer-btn' color={color} type='submit'>
             <SendIcon />
           </Button>
-        </>
+        </form>
       )}
-    </div>
+    </>
   )
 }
 
