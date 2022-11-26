@@ -15,9 +15,9 @@ import YoutubeIcon from '../../icons/youtubeIcon'
 import AudioView from './AudioView'
 import YoutubeView from './YoutubeView'
 
-const FAQPage = ({ toggelFaqBox, expand, toggleChat }) => {
+const FAQPage = ({ toggelFaqBox, expand, toggleChat, inIframe }) => {
   const { is_premium } = useUserContext()
-  const { id, color, inIframe } = useGlobalContext()
+  const { id, color } = useGlobalContext()
   const { faqs, loading } = useFaqContext()
   const [visibleAnswerId, updateVisibleAnswerId] = useState(null)
   const [qas, updateqas] = useState([])
