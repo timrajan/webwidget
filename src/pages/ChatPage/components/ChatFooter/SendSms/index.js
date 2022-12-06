@@ -51,7 +51,7 @@ const SendSms = ({ color, id }) => {
     e.preventDefault()
     const msg = inputRef.current.value
     if (!msg || smsSent) return
-    await requestSms()
+    await requestSms(msg)
     inputRef.current.value = ''
   }
   return (
