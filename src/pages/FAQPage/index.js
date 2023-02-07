@@ -7,6 +7,7 @@ import { API_URL } from '../../constant'
 import { useFaqContext } from '../../context/faqContext'
 import { useGlobalContext } from '../../context/globalContext'
 import { useUserContext } from '../../context/userContext'
+import { useUserStatusContext } from '../../context/userStatusContext'
 import AudioIcon from '../../icons/audioIcon'
 import ChevronDown from '../../icons/chevronDown'
 import CloseIcon from '../../icons/closeIcon'
@@ -19,6 +20,7 @@ const FAQPage = ({ toggelFaqBox, expand, toggleChat, inIframe }) => {
   const { is_premium } = useUserContext()
   const { id, color } = useGlobalContext()
   const { faqs, loading } = useFaqContext()
+  const { defaultVideo } = useUserStatusContext()
   const [visibleAnswerId, updateVisibleAnswerId] = useState(null)
   const [qas, updateqas] = useState([])
   const [filterType, setFilterType] = useState('')
@@ -34,6 +36,13 @@ const FAQPage = ({ toggelFaqBox, expand, toggleChat, inIframe }) => {
   useEffect(() => {
     addClick()
   }, [expand])
+
+  useEffect(() => {
+    if (defaultVideo) {
+      setYoutubeUrl(defaultVideo)
+      setShowModal(true)
+    }
+  }, [defaultVideo])
 
   const addClick = () => {
     const widgetBody = document.getElementById('atalki-widget-faq-body')

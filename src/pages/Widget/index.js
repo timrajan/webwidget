@@ -1,10 +1,17 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import FAQPage from '../FAQPage'
 import ChatPage from '../ChatPage'
 import { useUserStatusContext } from '../../context/userStatusContext'
 const AtalkiWidget = ({ id, color, secColor, inIframe }) => {
   const [expand, toggelFaqBox] = useState(inIframe || false)
   const [showChatPage, setShowChatPage] = useState(false)
+  const { isExpanded } = useUserStatusContext()
+
+  useEffect(() => {
+    if (inIframe) return
+
+    toggelFaqBox(isExpanded)
+  }, [isExpanded])
 
   const toggleChat = () => setShowChatPage((prev) => !prev)
 
@@ -18,7 +25,6 @@ const AtalkiWidget = ({ id, color, secColor, inIframe }) => {
             }`
           : ''
       }
-
       ${inIframe ? 'atalki-widget-iframe-container' : ''}
       `}
     >

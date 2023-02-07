@@ -16,9 +16,8 @@ const YoutubeView = ({ yt_url }) => {
         id='yt-iframe'
         width='100%'
         height='400'
-        src={`https://www.youtube.com/embed/${yt_id}`}
+        src={`https://www.youtube.com/embed/${yt_id}?autoplay=1&mute=1`}
         title='YouTube video player'
-        frameBorder='0'
         allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope;'
         allowFullScreen
       ></iframe>
