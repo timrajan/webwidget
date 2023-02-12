@@ -1,5 +1,4 @@
 import React from 'react'
-import YouTube from 'react-youtube'
 import { extractVideoID } from '../../utils/extractVideoID'
 
 const YoutubeView = ({ yt_url }) => {
@@ -11,21 +10,17 @@ const YoutubeView = ({ yt_url }) => {
       </div>
     )
   }
-  const opts = {
-    height: '400',
-    width: '100%',
-    playerVars: {
-      autoplay: 1,
-      controls: 1,
-      rel: 0,
-      showinfo: 0,
-      mute: 0,
-      loop: 0,
-    },
-  }
   return (
     <div className='youtube'>
-      <YouTube videoId={yt_id} opts={opts} id='yt-iframe' />
+      <iframe
+        id='yt-iframe'
+        width='100%'
+        height='400'
+        src={`https://www.youtube.com/embed/${yt_id}?autoplay=1&mute=1`}
+        title='YouTube video player'
+        allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope;'
+        allowFullScreen
+      ></iframe>
     </div>
   )
 }
