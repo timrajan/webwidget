@@ -14,7 +14,8 @@ const ChatHeader = ({ toggleChat }) => {
     >
       <div className='flex aic'>
         <p className='chat--title'>
-          Chat with <span>{first_name || email}</span>
+          Chat with me
+          {/* <span>{first_name || email}</span> */}
         </p>
         <UserStatus id={id} />
       </div>
