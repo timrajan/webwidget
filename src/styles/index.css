@@ -2,25 +2,16 @@
 
 @import url('./chat.css');
 
-* {
+#atalki-main-container {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Cairo', sans-serif !important;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p {
+#atalki-main-container p {
   margin: 0 !important;
   padding: 0 !important;
-}
-
-#atalki-main-container {
-  font-family: 'Cairo', sans-serif !important;
 }
 
 #atalki-main-container .flex {
@@ -543,7 +534,7 @@ p {
   top: 0;
   left: 0;
   height: 100%;
-  width: 100%;
+  width: calc(100% - 32px);
   z-index: 100;
   padding: 16px;
 }
